@@ -23,13 +23,13 @@ DATABASES = {
 }
 
 
-DEFAULT_FILE_STORAGE = 'quraneyah.backend.AzureMediaStorage'
-STATICFILES_STORAGE = 'quraneyah.backend.AzureStaticStorage'
+DEFAULT_FILE_STORAGE = 'dentallapp.backend.AzureMediaStorage'
+STATICFILES_STORAGE = 'dentallapp.backend.AzureStaticStorage'
 
 STATIC_LOCATION = "static"
 MEDIA_LOCATION = "media"
 
-AZURE_ACCOUNT_NAME = "quraneyah"
+AZURE_ACCOUNT_NAME = "dentallapp"
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
