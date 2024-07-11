@@ -14,3 +14,27 @@ class SignupSerializer(serializers.ModelSerializer):
                         'contact_number': {'required': True},
                         'contact_emergency': {'required': True},
                         }
+
+
+
+class LoginSerializer( serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['contact_number', 'password']
+        extra_kwargs = {'contact_number': {'required': True, 'validators': []},
+                        'password': {'required': True}}        
+        
+
+
+
+class getMyProfileSerializer(serializers.ModelSerializer):
+    token = serializers.SerializerMethodField()
+    class Meta:
+        model = User
+        fields = ['id','token','contact_number','contact_emergency', 'first_name','last_name']   
+    
+    def get_token(self, obj):
+            token, created = Token.objects.get_or_create(user=obj)
+            return token.key
+ 
+ 

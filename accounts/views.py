@@ -23,11 +23,11 @@ class SignupView(GenericAPIView):
                     'Missing contact number')
                 return Response(json_response, status=status.HTTP_200_OK)
 
-            #check on user email is empty or not
-            if request.data.get('first_name') is None or request.data.get('email') == '':
-                json_response = response.create_failure_response(
-                    'Missing first name')
-                return Response(json_response, status=status.HTTP_200_OK)       
+            # #check on user email is empty or not
+            # if request.data.get('first_name') is None or request.data.get('first_name') == '':
+            #     json_response = response.create_failure_response(
+            #         'Missing first name')
+            #     return Response(json_response, status=status.HTTP_200_OK)       
 
             signupSerializer = SignupSerializer(data=request.data)
 
@@ -47,7 +47,7 @@ class SignupView(GenericAPIView):
             user = signupSerializer.save()
             user.set_password(user.password)
             user.save()
-            serializedUsers = SignupSerializer(
+            serializedUsers = getMyProfileSerializer(
                 user, context={'request': request})
             json_response = response.create_success_response(
                 serializedUsers.data)
@@ -56,8 +56,64 @@ class SignupView(GenericAPIView):
         #exception handling   
         except IntegrityError as e:
             json_response = response.create_failure_response(
-                "This user handle is already exists")
+                e)
             return Response(json_response, status=status.HTTP_200_OK)
         except Exception as e:
             json_response = response.create_failure_response(str(e))
+            return Response(json_response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
+class LoginView(GenericAPIView):
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = LoginSerializer
+
+    def post(self, request, format=None):
+        response = BaseResponse()
+        try:
+            loginSerializer = LoginSerializer(data=request.data)
+            if not loginSerializer.is_valid():
+                json_response = response.create_failure_response(
+                    loginSerializer.errors)
+                return Response(json_response, status=status.HTTP_200_OK)
+
+            user = auth.authenticate(contact_number=loginSerializer.validated_data['contact_number'], password=loginSerializer.validated_data['password'])
+            
+            print(user)
+            if user is None:
+                json_response = response.create_failure_response(
+                    "Wrong contact number or password")
+                return Response(json_response)
+
+            serializedUsers = getMyProfileSerializer(
+                user, context={'request': request})
+            json_response = response.create_success_response(
+                serializedUsers.data)
+            return Response(json_response)
+
+        except Exception as e:
+            json_response = response.create_failure_response(str(e))
+            return Response(json_response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+
+class LogoutView(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, format=None):
+        base_response = BaseResponse()
+        try:
+            logged_user = request.user
+
+            if logged_user.player_id:
+                User.objects.filter(id=request.user.id).update(
+                    player_id=None)
+
+            logged_user.auth_token.delete()
+            json_response = base_response.create_success_response(
+                "Logged Out Successfully")
+            return Response(json_response, status=status.HTTP_200_OK)
+        except Exception as e:
+            json_response = base_response.create_failure_response(str(e))
             return Response(json_response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
