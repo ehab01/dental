@@ -14,8 +14,8 @@ DATABASES = {
 }
 
 
-DEFAULT_FILE_STORAGE = 'dentall.backend.AzureMediaStorage'
-STATICFILES_STORAGE = 'dentall.backend.AzureStaticStorage'
+DEFAULT_FILE_STORAGE = 'Dental.backend.AzureMediaStorage'
+STATICFILES_STORAGE = 'Dental.backend.AzureStaticStorage'
 
 STATIC_LOCATION = "static"
 MEDIA_LOCATION = "media"
@@ -30,3 +30,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+
