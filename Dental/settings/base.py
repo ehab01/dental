@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-#(5l@-jsmpcdvg$q9_ae$&z23$05od2xwajw)#du7)_s7urj3p
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net/']
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://dentallapp.azurewebsites.net/']
+
 
 # Application definition
 
