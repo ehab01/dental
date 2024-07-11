@@ -23,7 +23,7 @@ class User(AbstractUser):
         null=False,
         validators=[phone_number_validator]
     )
-    email = models.CharField(max_length=254, unique=False, null=True, blank=True)
+    user_email = models.CharField(max_length=254, null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
     player_id = models.TextField(null=True, blank=True)
          
