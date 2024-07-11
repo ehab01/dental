@@ -14,13 +14,13 @@ DATABASES = {
 }
 
 
-DEFAULT_FILE_STORAGE = 'dentallapp.backend.AzureMediaStorage'
-STATICFILES_STORAGE = 'dentallapp.backend.AzureStaticStorage'
+DEFAULT_FILE_STORAGE = 'dentall.backend.AzureMediaStorage'
+STATICFILES_STORAGE = 'dentall.backend.AzureStaticStorage'
 
 STATIC_LOCATION = "static"
 MEDIA_LOCATION = "media"
 
-AZURE_ACCOUNT_NAME = "dentallapp"
+AZURE_ACCOUNT_NAME = "dentall"
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
