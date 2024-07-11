@@ -8,7 +8,7 @@ class SignupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['first_name','last_name','contact_number','contact_emergency','password']
+        fields = ['contact_number','first_name','last_name','contact_emergency','age','email','password']
         extra_kwargs = {'first_name': {'required': True},
                          'last_name': {'required': True},
                         'contact_number': {'required': True},
@@ -31,7 +31,7 @@ class getMyProfileSerializer(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
     class Meta:
         model = User
-        fields = ['id','token','contact_number','contact_emergency', 'first_name','last_name']   
+        fields = ['id','token','contact_number','first_name','last_name','contact_emergency','age','email','password']  
     
     def get_token(self, obj):
             token, created = Token.objects.get_or_create(user=obj)
