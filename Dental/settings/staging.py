@@ -13,7 +13,7 @@ DATABASES = {
         'USER': 'dentaladmin',
         'PASSWORD': 'P@$$w0rd@DE',
         'HOST': 'dental.postgres.database.azure.com',
-        'PORT': '3306',
+        'PORT': '5432',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             'charset': 'utf8mb4',
