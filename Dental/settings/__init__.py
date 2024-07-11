@@ -3,7 +3,7 @@ try:
     from .local import *
 except ImportError:
     try:
-        from .production import *
+        from .staging import *
     except ImportError:
         try:
             from .staging import *
