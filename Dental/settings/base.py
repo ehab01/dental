@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'rest_framework',
     'rest_framework.authtoken',
-    'accounts'
+    'accounts',
+    'appointments',
+    'learning'
 
 ]
 

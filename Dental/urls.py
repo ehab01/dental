@@ -26,6 +26,8 @@ urlpatterns = [
     path('schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('v1/', include([
         re_path(r'^accounts/', include("accounts.urls", namespace="accounts_api")),
+        re_path(r'^appointments/', include("appointments.urls", namespace="appointments_api")),
+        re_path(r'^leanring/', include("learning.urls", namespace="learning_api")),
     ])),
 ]
 
