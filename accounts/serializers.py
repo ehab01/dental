@@ -31,7 +31,7 @@ class getMyProfileSerializer(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
     class Meta:
         model = User
-        fields = ['id','token','contact_number','first_name','last_name','contact_emergency','age','email','password']  
+        fields = ['id','token','contact_number','first_name','last_name','contact_emergency','age','email']  
     
     def get_token(self, obj):
             token, created = Token.objects.get_or_create(user=obj)
