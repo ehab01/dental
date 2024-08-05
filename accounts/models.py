@@ -20,7 +20,7 @@ class User(AbstractUser):
     contact_emergency = models.CharField(
         max_length=11,
         unique=False,
-        null=False,
+        null=True,
         validators=[phone_number_validator]
     )
     user_email = models.CharField(max_length=254, null=True, blank=True)

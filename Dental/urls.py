@@ -28,6 +28,8 @@ urlpatterns = [
         re_path(r'^accounts/', include("accounts.urls", namespace="accounts_api")),
         re_path(r'^appointments/', include("appointments.urls", namespace="appointments_api")),
         re_path(r'^leanring/', include("learning.urls", namespace="learning_api")),
+        re_path(r'^user-activity/', include("counter.urls", namespace="user_activity_api")),
+        re_path(r'^home/', include("home.urls", namespace="home_api")),
     ])),
 ]
 
