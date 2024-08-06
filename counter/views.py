@@ -24,7 +24,7 @@ class UserActivityView(GenericAPIView):
 
     def post(self, request, format=None):
         response = BaseResponse()
-        serializer = UserActivitySerializer(data=request.data)
+        serializer = UserActivitySerializer(request.user ,data=request.data)
         try:
             if serializer.is_valid():
                 serializer.save()

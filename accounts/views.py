@@ -117,3 +117,26 @@ class LogoutView(GenericAPIView):
         except Exception as e:
             json_response = base_response.create_failure_response(str(e))
             return Response(json_response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class UpdatePlayerIdView(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = UpdatePlayerIdSerializer
+
+    def post(self, request, format=None):
+        response = BaseResponse()
+        try:
+            user = request.user
+            update_player_id_serializer = UpdatePlayerIdSerializer(
+                user, data=request.data, partial=True)
+            if not update_player_id_serializer.is_valid():
+                json_response = response.create_failure_response(
+                    update_player_id_serializer.errors)
+                return Response(json_response, status=status.HTTP_200_OK)
+            user_data = getMyProfileSerializer(
+                update_player_id_serializer.save(), context={'request': request})
+            json_response = response.create_success_response(
+                user_data.data)
+            return Response(json_response)
+        except Exception as e:
+            json_response = response.create_failure_response(str(e))
+            return Response(json_response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)          

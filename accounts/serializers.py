@@ -31,10 +31,17 @@ class getMyProfileSerializer(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()
     class Meta:
         model = User
-        fields = ['id','token','contact_number','first_name','last_name','contact_emergency','age','email']  
+        fields = ['id','token','player_id','contact_number','first_name','last_name','contact_emergency','age','email']  
     
     def get_token(self, obj):
             token, created = Token.objects.get_or_create(user=obj)
             return token.key
  
+
+
+class UpdatePlayerIdSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['player_id']
  
