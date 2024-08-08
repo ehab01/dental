@@ -24,10 +24,10 @@ class UserActivityView(GenericAPIView):
 
     def post(self, request, format=None):
         response = BaseResponse()
-        serializer = UserActivitySerializer(request.user ,data=request.data)
+        serializer = UserActivitySerializer(data=request.data)
         try:
             if serializer.is_valid():
-                serializer.save()
+                serializer.save(user=request.user)
                 json_response = response.create_success_response(serializer.data)
                 return Response(json_response, status=status.HTTP_201_CREATED)
             else:
