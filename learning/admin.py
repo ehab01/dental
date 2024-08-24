@@ -5,4 +5,4 @@ from .models import Post
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at', 'updated_at')
     search_fields = ('title', 'text')
-    fields = ('title', 'text', 'video')
+    fields = ('title', 'text','media_type' ,'media')

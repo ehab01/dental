@@ -140,3 +140,39 @@ class UpdatePlayerIdView(GenericAPIView):
         except Exception as e:
             json_response = response.create_failure_response(str(e))
             return Response(json_response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)          
+
+
+class UserProfileView(GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = UserProfileSerializer
+
+    def get(self, request, format=None):
+        response = BaseResponse()
+        try:
+            user = request.user
+            user_serializer = UserProfileSerializer(user)
+            json_response = response.create_success_response(user_serializer.data)
+            return Response(json_response, status=status.HTTP_200_OK)
+        except Exception as e:
+            json_response = response.create_failure_response(str(e))
+            return Response(json_response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class ConfigurationView(GenericAPIView):
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = ConfigurationSerializer
+
+    def get(self, request, format=None):
+        response = BaseResponse()
+        try:
+            config = Configuration.objects.first()  # Assuming only one config entry exists
+            if not config:
+                json_response = response.create_failure_response('No configuration found')
+                return Response(json_response, status=status.HTTP_404_NOT_FOUND)
+
+            config_serializer = ConfigurationSerializer(config)
+            json_response = response.create_success_response(config_serializer.data)
+            return Response(json_response, status=status.HTTP_200_OK)
+        except Exception as e:
+            json_response = response.create_failure_response(str(e))
+            return Response(json_response, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

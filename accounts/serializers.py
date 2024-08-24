@@ -44,4 +44,15 @@ class UpdatePlayerIdSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['player_id']
- 
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'contact_number', 'contact_emergency', 'user_email', 'age', 'player_id'] 
+
+
+
+class ConfigurationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Configuration
+        fields = ['logo', 'survey_link']
