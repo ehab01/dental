@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import firebase_admin
+from firebase_admin import credentials, messaging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -28,7 +30,15 @@ DEBUG = True
 CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net/']
 ALLOWED_HOSTS = ['https://*.azurewebsites.net/']
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+json_file_path = os.path.join(BASE_DIR, 'dental-887d4-firebase-adminsdk-79f24-8ba08e90c8.json')
+cred = credentials.Certificate(json_file_path )
+firebase_admin.initialize_app(cred) 
 # Application definition
 
 INSTALLED_APPS = [
@@ -140,11 +150,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
