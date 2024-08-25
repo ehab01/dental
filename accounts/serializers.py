@@ -46,13 +46,20 @@ class UpdatePlayerIdSerializer(serializers.ModelSerializer):
         fields = ['player_id']
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    survey_link = serializers.SerializerMethodField()
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'contact_number', 'contact_emergency', 'user_email', 'age', 'player_id'] 
+        fields = ['first_name', 'last_name', 'contact_number', 'contact_emergency', 'user_email', 'age', 'player_id','survey_link'] 
+        
+    def get_survey_link(self, obj):
+        # Fetch the Configuration object
+        configuration = Configuration.objects.first()
+        # Return the survey_link if the configuration exists, else return None
+        return configuration.survey_link if configuration else None        
 
 
 
 class ConfigurationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Configuration
-        fields = ['logo', 'survey_link']
+        fields = ['survey_link']

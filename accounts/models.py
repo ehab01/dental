@@ -41,7 +41,6 @@ class User(AbstractUser):
         verbose_name_plural = "Users"
 
 class Configuration(models.Model):
-    logo = models.FileField(upload_to='logos/', blank=True, null=True)
     survey_link = models.URLField(max_length=200, null=True, blank=True)
 
     def __str__(self):
