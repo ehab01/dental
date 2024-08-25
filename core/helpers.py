@@ -12,4 +12,9 @@ def send_push_notification(token, title, message, payload=None):
             token=token,
             data=payload,  # add the payload to the message object
         )
-        response = messaging.send(message)
+        try:
+            response = messaging.send(message)
+            print('Successfully sent message:', response)
+        except Exception as e:
+            print('Failed to send message:', e)
+            pass
