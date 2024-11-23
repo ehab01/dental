@@ -21,7 +21,7 @@ class UserAdmin(BaseUserAdmin):
     )
     list_display = ('contact_number', 'first_name', 'last_name', 'is_staff')
     search_fields = ('contact_number', 'first_name', 'last_name')
-    ordering = ('contact_number',)
+    ordering = ('first_name','last_name')
 
 admin.site.site_header = "DentaLab administration"
 admin.site.site_title = "App administration"
